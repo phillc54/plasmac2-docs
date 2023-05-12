@@ -3193,9 +3193,14 @@ This means if these codes are used in the middle of active motion codes, the mot
 
 == Known Issues
 === Keyboard Jogging
-There is a known issue with some combinations of hardware and keyboards that may affect the autorepeat feature of the keyboard
-and will then affect keyboard jogging by intermittent stopping and starting during jogging.
+There is a known issue with some combinations of hardware and keyboards that may affect the autorepeat feature of the keyboard.
+This may affect keyboard jogging by causing intermittent stopping and starting during jogging.
 This issue can be prevented by disabling the Operating System's autorepeat feature for the keyboard.
+
+=== Browser Messages
+There is a known issue with the Chrome browser whiche generates the following console message:
+
+`Missing chrome or resource URL: resource://gre/modules/UpdateListener`
 
 == Support
 Online help and support is available from the https://forum.linuxcnc.org/plasmac[PlasmaC] section of the https://forum.linuxcnc.org/[LinuxCNC Forum].
