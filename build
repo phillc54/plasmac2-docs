@@ -3,12 +3,12 @@
 echo -e '\nbuilding plasmac2.html'
 
 asciidoc \
--f ./utils/source-highlight/linuxcnc.conf \
--a 'source_highlight_dir=./utils/source-highlight/local' \
+-f utils/source-highlight/linuxcnc.conf \
+-a 'source_highlight_dir=utils/source-highlight/local' \
 -a linkcss \
--a 'scriptsdir=../utils/scripts' \
--a 'stylesdir=../utils/styles' \
+-a 'scriptsdir=utils/scripts' \
+-a 'stylesdir=utils/styles' \
 -a stylesheet=linuxcnc.css \
-./docs/plasmac2.adoc
+plasmac2.adoc
 
 echo 'done...'
