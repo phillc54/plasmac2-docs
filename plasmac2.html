@@ -27,7 +27,7 @@ asciidoc.install(4);
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="cha:qtplasmac">Preamble</h2>
+<h2 id="_preamble">Preamble</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Except where noted, this guide assumes the user is using the latest version of plasmac2.
 Version history can be seen by visiting this <a href="https://htmlpreview.github.io/?https://github.com/LinuxCNC/linuxcnc/blob/master/configs/sim/axis/plasma/plasmac2/versions.html">link</a> which will show the latest available version.
@@ -115,18 +115,10 @@ The <a href="http://linuxcnc.org/docs/devel/html/plasma/qtplasmac.html#plasma:in
 <div class="content">
 <pre><code>python3 ~/linuxcnc-dev/configs/sim/axis/plasmac2/plasmac2/migrate.py</code></pre>
 </div></div>
-<div class="paragraph"><p>Click <strong>Migrate</strong> then select the INI file of the config you wish to migrate.
-You will then be prompted for the directory name of the new config which will be the original QtPlasmaC directory name appended with <em>_plasmac2</em>.
-If you change the new directory name to the same as the original QtPlasmaC config then the QtPlasmaC directory will be renamed with <em>_qtplasmac</em> appended.</p></div>
-<div class="paragraph"><p>It is possible that some HAL commands may be incompatible with plasma2, if this is the case then a notificatiuon will be shown listing any incompatibilities.</p></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">The correct file link above may be copied from the plasmac2 menu <code>Help</code> &#8594; <code>Migration</code> or directly from above.</td>
-</tr></table>
-</div>
+<div class="paragraph"><p>Click <strong>Migrate</strong> then select the INI file of the config you wish to migrate.</p></div>
+<div class="paragraph"><p>You will then be prompted for the directory name of the new config which by default will be the original QtPlasmaC directory name appended with <em>_plasmac2</em>.</p></div>
+<div class="paragraph"><p>If you change the new directory name to the same as the original QtPlasmaC config then the QtPlasmaC directory name will be appended with <em>_qtplasmac</em>.</p></div>
+<div class="paragraph"><p>It is possible that some HAL commands may be incompatible with plasma2, if this is the case then a notification will be shown listing any incompatibilities.</p></div>
 <div class="sect2">
 <h3 id="_plasmac2_files">plasmac2 Files</h3>
 <div class="paragraph"><p>After a successful plasmac2 installation, the following files are created in the configuration directory:</p></div>
@@ -6219,7 +6211,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-05-12 17:33:54 AEST
+ 2023-05-12 17:44:11 AEST
 </div>
 </div>
 </body>

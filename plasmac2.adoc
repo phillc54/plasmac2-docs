@@ -66,13 +66,12 @@ python3 ~/linuxcnc-dev/configs/sim/axis/plasmac2/plasmac2/migrate.py
 ----
 
 Click *Migrate* then select the INI file of the config you wish to migrate.
-You will then be prompted for the directory name of the new config which will be the original QtPlasmaC directory name appended with '_plasmac2'.
-If you change the new directory name to the same as the original QtPlasmaC config then the QtPlasmaC directory will be renamed with '_qtplasmac' appended.
 
-It is possible that some HAL commands may be incompatible with plasma2, if this is the case then a notificatiuon will be shown listing any incompatibilities.
+You will then be prompted for the directory name of the new config which by default will be the original QtPlasmaC directory name appended with __plasmac2_.
 
-[NOTE]
-The correct file link above may be copied from the plasmac2 menu `Help` -> `Migration` or directly from above.
+If you change the new directory name to the same as the original QtPlasmaC config then the QtPlasmaC directory name will be appended with __qtplasmac_.
+
+It is possible that some HAL commands may be incompatible with plasma2, if this is the case then a notification will be shown listing any incompatibilities.
 
 === plasmac2 Files
 After a successful plasmac2 installation, the following files are created in the configuration directory:
