@@ -2,8 +2,7 @@
 :toc:
 :toclevels: 4
 
-[[cha:qtplasmac]]
-= plasmac2
+= plasmac2 User Manual
 
 // Custom lang highlight
 // must come after the doc title, to work around a bug in asciidoc 8.6.6
