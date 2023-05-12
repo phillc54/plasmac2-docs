@@ -56,12 +56,12 @@ plasmac2 has the same http://linuxcnc.org/docs/devel/html/plasma/qtplasmac.html#
 == Migrating To plasmac2
 To begin a migration, call the migrator from a terminal by using one of the following commands depending on the LinuxCNC installation type:
 
-=== Package installation
+.*_Package installation_*
 ----
 python3 /usr/share/doc/linuxcnc/examples/sample-configs/sim/axis/plasmac2/plasmac2/migrate.py
 ----
 
-=== Run-In-Place installation
+*_Run-In-Place installation_*
 ----
 python3 ~/linuxcnc-dev/configs/sim/axis/plasmac2/plasmac2/migrate.py
 ----
@@ -119,45 +119,45 @@ plasmac2 has some specific _<machine_name>_.ini file variables in the following 
 [source,{ini}]
 ----
 [RS274NGC]
-RS274NGC_STARTUP_CODE = G21 G40 G49 G80 G90 G92.1 G94 G97 M52P1 +
-SUBROUTINE_PATH       = ./:../../nc_files +
-USER_M_PATH           = ./:../../nc_files +
+RS274NGC_STARTUP_CODE = G21 G40 G49 G80 G90 G92.1 G94 G97 M52P1
+SUBROUTINE_PATH       = ./:../../nc_files
+USER_M_PATH           = ./:../../nc_files
 
 [FILTER]
-PROGRAM_EXTENSION = .ngc,.nc,.tap G-code File (*.ngc, *.nc, *.tap) +
-ngc               = qtplasmac_gcode +
-nc                = qtplasmac_gcode +
-tap               = qtplasmac_gcode' +
+PROGRAM_EXTENSION     = .ngc,.nc,.tap G-code File (*.ngc, *.nc, *.tap)
+ngc                   = qtplasmac_gcode
+nc                    = qtplasmac_gcode
+tap                   = qtplasmac_gcode
 
 [HAL]
-HALUI           = halui (required) +
-HALFILE         = <machine_name>.hal (the machine HAL file) +
-HALFILE         = plasmac.tcl (the standard plasmac2 HAL file ) +
-HALFILE         = custom.hal (Users custom HAL commands) +
-POSTGUI_HALFILE = postgui_call_list.hal (required) +
-SHUTDOWN        = shutdown.hal (shutdown HAL commands) +
+HALUI                 = halui
+HALFILE               = <machine_name>.hal
+HALFILE               = plasmac.tcl
+HALFILE               = custom.hal
+POSTGUI_HALFILE       = postgui_call_list.hal
+SHUTDOWN              = shutdown.hal
 
 [DISPLAY]
-DISPLAY = axis +
+DISPLAY               = axis
 
 [TRAJ]
-SPINDLES = 3 +
+SPINDLES              = 3
 
 [AXIS_X]
-MAX_VELOCITY     = double the value in the corresponding joint +
-MAX_ACCELERATION = double the value in the corresponding joint +
-OFFSET_AV_RATIO  = 0.5 +
+MAX_VELOCITY          = double the value in the corresponding joint
+MAX_ACCELERATION      = double the value in the corresponding joint
+OFFSET_AV_RATIO       = 0.5
 
 [AXIS_Y]
-MAX_VELOCITY     = double the value in the corresponding joint +
-MAX_ACCELERATION = double the value in the corresponding joint +
-OFFSET_AV_RATIO  = 0.5 +
+MAX_VELOCITY          = double the value in the corresponding joint
+MAX_ACCELERATION      = double the value in the corresponding joint
+OFFSET_AV_RATIO       = 0.5
 
 [AXIS_Z]
-MIN_LIMIT        = just below the top of the table's slats +
-MAX_VELOCITY     = double the value in the corresponding joint +
-MAX_ACCELERATION = double the value in the corresponding joint +
-OFFSET_AV_RATIO  = 0.5 +
+MIN_LIMIT             = just below the top of the table's slats
+MAX_VELOCITY          = double the value in the corresponding joint
+MAX_ACCELERATION      = double the value in the corresponding joint
+OFFSET_AV_RATIO       = 0.5
 ----
 
 [NOTE]
@@ -168,16 +168,6 @@ plasmac2 uses the LinuxCNC <<cha:external-offsets,External Axis Offsets>> featur
 
 == plasmac2 GUI Overview
 The following sections will give a general overview of the plasmac2 layout and the available functions.
-
-=== Exiting plasmac2
-Exiting or shutting down plasmac2 is done by either:
-
-. Click the window shutdown button on the window title bar
-. From the menu click `File` -> `Quit`.
-
-A shutdown warning can be displayed on every shutdown by checking the *Close Dialog* checkbox on the <<plasmac2:setup-page,Setup Page>>.
-
-A custom warning message may be entered in the `Shutdown Message` entry on the <<plasmac2:setup-page,Setup Page>>.
 
 [[plasmac2:main-page]]
 === Main Page
@@ -1109,8 +1099,18 @@ For reliable use of plasmac2 the user should NOT use any Z axis offsets other th
 
 plasmac2 will automatically add a line of G-code to move the Z axis to the correct height at the beginning of every G-code program.
 
-*Version Information* - plasmac2 will display versioning information in the title of the main window.
-The information will be displayed as `plasmac2 v2.N + AXIS N.N (FN)` where `N` is the version of plasmac2, `N.N` is the version of AXIS, and `FN` is the name of the loaded G-code program.
+*_Version Information_* - plasmac2 will display versioning information in the title of the main window.
+The information will be displayed as `plasmac2 v2.n + AXIS n.n (f)` where `n` is the version of plasmac2, `n.n` is the version of AXIS, and `f` is the name of the loaded G-code program.
+
+=== Exiting plasmac2
+Exiting or shutting down plasmac2 is done by either:
+
+. Click the window shutdown button on the window title bar
+. From the menu click `File` -> `Quit`.
+
+A shutdown warning can be displayed on every shutdown by checking the *Close Dialog* checkbox on the <<plasmac2:setup-page,Setup Page>>.
+
+A custom warning message may be entered in the `Shutdown Message` entry on the <<plasmac2:setup-page,Setup Page>>.
 
 === Units Systems
 All settings and parameters in plasmac2 are required to be in the same units as specified in the INI file, being either metric or imperial.

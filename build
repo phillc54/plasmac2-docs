@@ -9,6 +9,6 @@ asciidoc \
 -a 'scriptsdir=../utils/scripts' \
 -a 'stylesdir=../utils/styles' \
 -a stylesheet=linuxcnc.css \
-./manual/plasmac2.adoc
+./docs/plasmac2.adoc
 
 echo 'done...'

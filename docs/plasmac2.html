@@ -105,15 +105,12 @@ The <a href="http://linuxcnc.org/docs/devel/html/plasma/qtplasmac.html#plasma:in
 <h2 id="_migrating_to_plasmac2">Migrating To plasmac2</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>To begin a migration, call the migrator from a terminal by using one of the following commands depending on the LinuxCNC installation type:</p></div>
-<div class="sect2">
-<h3 id="_package_installation">Package installation</h3>
 <div class="listingblock">
+<div class="title"><strong><em>Package installation</em></strong></div>
 <div class="content">
 <pre><code>python3 /usr/share/doc/linuxcnc/examples/sample-configs/sim/axis/plasmac2/plasmac2/migrate.py</code></pre>
 </div></div>
-</div>
-<div class="sect2">
-<h3 id="_run_in_place_installation">Run-In-Place installation</h3>
+<div class="paragraph"><p><strong><em>Run-In-Place installation</em></strong></p></div>
 <div class="listingblock">
 <div class="content">
 <pre><code>python3 ~/linuxcnc-dev/configs/sim/axis/plasmac2/plasmac2/migrate.py</code></pre>
@@ -129,7 +126,6 @@ If you change the new directory name to the same as the original QtPlasmaC confi
 </td>
 <td class="content">The correct file link above may be copied from the plasmac2 menu <code>Help</code> &#8594; <code>Migration</code> or directly from above.</td>
 </tr></table>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_plasmac2_files">plasmac2 Files</h3>
@@ -244,45 +240,45 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">[RS274NGC]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">RS274NGC_STARTUP_CODE </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> G21 G40 G49 G80 G90 G92.1 G94 G97 M52P1 +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">SUBROUTINE_PATH       </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> ./:../../nc_files +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">USER_M_PATH           </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> ./:../../nc_files +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">RS274NGC_STARTUP_CODE </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> G21 G40 G49 G80 G90 G92.1 G94 G97 M52P1</span>
+<span style="font-weight: bold"><span style="color: #0000FF">SUBROUTINE_PATH       </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> ./:../../nc_files</span>
+<span style="font-weight: bold"><span style="color: #0000FF">USER_M_PATH           </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> ./:../../nc_files</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[FILTER]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">PROGRAM_EXTENSION </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> .ngc,.nc,.tap G-code File (*.ngc, *.nc, *.tap) +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">ngc               </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> qtplasmac_gcode +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">nc                </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> qtplasmac_gcode +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">tap               </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> qtplasmac_gcode' +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">PROGRAM_EXTENSION     </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> .ngc,.nc,.tap G-code File (*.ngc, *.nc, *.tap)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">ngc                   </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> qtplasmac_gcode</span>
+<span style="font-weight: bold"><span style="color: #0000FF">nc                    </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> qtplasmac_gcode</span>
+<span style="font-weight: bold"><span style="color: #0000FF">tap                   </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> qtplasmac_gcode</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[HAL]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">HALUI           </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> halui (required) +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">HALFILE         </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> &lt;machine_name&gt;.hal (the machine HAL file) +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">HALFILE         </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> plasmac.tcl (the standard plasmac2 HAL file ) +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">HALFILE         </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> custom.hal (Users custom HAL commands) +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">POSTGUI_HALFILE </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> postgui_call_list.hal (required) +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">SHUTDOWN        </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> shutdown.hal (shutdown HAL commands) +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">HALUI                 </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> halui</span>
+<span style="font-weight: bold"><span style="color: #0000FF">HALFILE               </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> &lt;machine_name&gt;.hal</span>
+<span style="font-weight: bold"><span style="color: #0000FF">HALFILE               </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> plasmac.tcl</span>
+<span style="font-weight: bold"><span style="color: #0000FF">HALFILE               </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> custom.hal</span>
+<span style="font-weight: bold"><span style="color: #0000FF">POSTGUI_HALFILE       </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> postgui_call_list.hal</span>
+<span style="font-weight: bold"><span style="color: #0000FF">SHUTDOWN              </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> shutdown.hal</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[DISPLAY]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">DISPLAY </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> axis +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">DISPLAY               </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> axis</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[TRAJ]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">SPINDLES </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 3 +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">SPINDLES              </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 3</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[AXIS_X]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">MAX_VELOCITY     </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">MAX_ACCELERATION </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">OFFSET_AV_RATIO  </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 0.5 +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">MAX_VELOCITY          </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint</span>
+<span style="font-weight: bold"><span style="color: #0000FF">MAX_ACCELERATION      </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint</span>
+<span style="font-weight: bold"><span style="color: #0000FF">OFFSET_AV_RATIO       </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 0.5</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[AXIS_Y]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">MAX_VELOCITY     </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">MAX_ACCELERATION </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">OFFSET_AV_RATIO  </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 0.5 +</span>
+<span style="font-weight: bold"><span style="color: #0000FF">MAX_VELOCITY          </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint</span>
+<span style="font-weight: bold"><span style="color: #0000FF">MAX_ACCELERATION      </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint</span>
+<span style="font-weight: bold"><span style="color: #0000FF">OFFSET_AV_RATIO       </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 0.5</span>
 
 <span style="font-weight: bold"><span style="color: #000000">[AXIS_Z]</span></span>
-<span style="font-weight: bold"><span style="color: #0000FF">MIN_LIMIT        </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> just below the top of the table's slats +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">MAX_VELOCITY     </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">MAX_ACCELERATION </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint +</span>
-<span style="font-weight: bold"><span style="color: #0000FF">OFFSET_AV_RATIO  </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 0.5 +</span></tt></pre></div></div>
+<span style="font-weight: bold"><span style="color: #0000FF">MIN_LIMIT             </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> just below the top of the table's slats</span>
+<span style="font-weight: bold"><span style="color: #0000FF">MAX_VELOCITY          </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint</span>
+<span style="font-weight: bold"><span style="color: #0000FF">MAX_ACCELERATION      </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> double the value in the corresponding joint</span>
+<span style="font-weight: bold"><span style="color: #0000FF">OFFSET_AV_RATIO       </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> 0.5</span></tt></pre></div></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -301,24 +297,6 @@ plasmac2 uses the LinuxCNC <a href="#cha:external-offsets">External Axis Offsets
 <h2 id="_plasmac2_gui_overview">plasmac2 GUI Overview</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The following sections will give a general overview of the plasmac2 layout and the available functions.</p></div>
-<div class="sect2">
-<h3 id="_exiting_plasmac2">Exiting plasmac2</h3>
-<div class="paragraph"><p>Exiting or shutting down plasmac2 is done by either:</p></div>
-<div class="olist arabic"><ol class="arabic">
-<li>
-<p>
-Click the window shutdown button on the window title bar
-</p>
-</li>
-<li>
-<p>
-From the menu click <code>File</code> &#8594; <code>Quit</code>.
-</p>
-</li>
-</ol></div>
-<div class="paragraph"><p>A shutdown warning can be displayed on every shutdown by checking the <strong>Close Dialog</strong> checkbox on the <a href="#plasmac2:setup-page">Setup Page</a>.</p></div>
-<div class="paragraph"><p>A custom warning message may be entered in the <code>Shutdown Message</code> entry on the <a href="#plasmac2:setup-page">Setup Page</a>.</p></div>
-</div>
 <div class="sect2">
 <h3 id="plasmac2:main-page">Main Page</h3>
 <div class="imageblock" style="text-align:center;">
@@ -2697,8 +2675,26 @@ cellspacing="0" cellpadding="4">
 In fact, if any Z axis references are present in the cut program, the standard plasmac2 configuration will remove them during the program loading process.</p></div>
 <div class="paragraph"><p>For reliable use of plasmac2 the user should NOT use any Z axis offsets other than the coordinate system offsets (<code>G54</code>-<code>G59.3</code>).</p></div>
 <div class="paragraph"><p>plasmac2 will automatically add a line of G-code to move the Z axis to the correct height at the beginning of every G-code program.</p></div>
-<div class="paragraph"><p><strong>Version Information</strong> - plasmac2 will display versioning information in the title of the main window.
-The information will be displayed as <code>plasmac2 v2.N + AXIS N.N (FN)</code> where <code>N</code> is the version of plasmac2, <code>N.N</code> is the version of AXIS, and <code>FN</code> is the name of the loaded G-code program.</p></div>
+<div class="paragraph"><p><strong><em>Version Information</em></strong> - plasmac2 will display versioning information in the title of the main window.
+The information will be displayed as <code>plasmac2 v2.n + AXIS n.n (f)</code> where <code>n</code> is the version of plasmac2, <code>n.n</code> is the version of AXIS, and <code>f</code> is the name of the loaded G-code program.</p></div>
+<div class="sect2">
+<h3 id="_exiting_plasmac2">Exiting plasmac2</h3>
+<div class="paragraph"><p>Exiting or shutting down plasmac2 is done by either:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Click the window shutdown button on the window title bar
+</p>
+</li>
+<li>
+<p>
+From the menu click <code>File</code> &#8594; <code>Quit</code>.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>A shutdown warning can be displayed on every shutdown by checking the <strong>Close Dialog</strong> checkbox on the <a href="#plasmac2:setup-page">Setup Page</a>.</p></div>
+<div class="paragraph"><p>A custom warning message may be entered in the <code>Shutdown Message</code> entry on the <a href="#plasmac2:setup-page">Setup Page</a>.</p></div>
+</div>
 <div class="sect2">
 <h3 id="_units_systems">Units Systems</h3>
 <div class="paragraph"><p>All settings and parameters in plasmac2 are required to be in the same units as specified in the INI file, being either metric or imperial.</p></div>
@@ -6223,7 +6219,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-05-11 17:20:45 AEST
+ 2023-05-12 12:51:19 AEST
 </div>
 </div>
 </body>
