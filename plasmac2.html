@@ -4866,7 +4866,7 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> o&lt;the_subroutine&gt; call</span></tt></pre></div></div>
-<div class="paragraph"><p><em>&lt;machine_name&gt;</em>.ini file variables can be entered by using the standard LinuxCNC G-code format.
+<div class="paragraph"><p><em>&lt;machine_name&gt;</em>.ini file options can be entered by using the standard LinuxCNC G-code format.
 If expressions are included then they need to be surrounded by brackets.</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.9
@@ -4875,14 +4875,15 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> G0 X#&lt;_ini[joint_0]home&gt; Y1</span>
 <span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> G53 G0 Z[#&lt;_ini[axis_z]max_limit&gt; - 1.001]</span></tt></pre></div></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">The original method of entering <em>&lt;machine_name&gt;</em>.ini file variables by enclosing in braces is deprecated and may be removed in the future.</td>
-</tr></table>
-</div>
+<div class="paragraph"><p><em>&lt;machine_name&gt;</em>.prefs file options and <em>&lt;machine_name&gt;</em>.ini file options can be also entered by enclosing in braces.
+If expressions are included then they need to be surrounded by brackets.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.9
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> G0 X{LASER_OFFSET X axis} Y[{LASER_OFFSET Y axis} + 3]</span>
+<span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> G53 G0[{ZAXIS_Z MAX_LIMIT} - 1.001]</span></tt></pre></div></div>
 <div class="paragraph"><p>Multiple codes can be run by separating the codes with a "\" (backslash) character.
 The exception is the special commands which are required to be a single command per button.</p></div>
 <div class="listingblock">
@@ -6216,7 +6217,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-05-13 09:47:21 AEST
+ 2023-08-18 18:05:58 AEST
 </div>
 </div>
 </body>

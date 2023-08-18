@@ -2406,7 +2406,7 @@ To run an existing subroutine.
 n Code = o<the_subroutine> call
 ----
 
-_<machine_name>_.ini file variables can be entered by using the standard LinuxCNC G-code format.
+_<machine_name>_.ini file options can be entered by using the standard LinuxCNC G-code format.
 If expressions are included then they need to be surrounded by brackets.
 
 [source,{ini}]
@@ -2415,8 +2415,14 @@ n Code = G0 X#<_ini[joint_0]home> Y1
 n Code = G53 G0 Z[#<_ini[axis_z]max_limit> - 1.001]
 ----
 
-[NOTE]
-The original method of entering _<machine_name>_.ini file variables by enclosing in braces is deprecated and may be removed in the future.
+_<machine_name>_.prefs file options and _<machine_name>_.ini file options can be also entered by enclosing in braces.
+If expressions are included then they need to be surrounded by brackets.
+
+[source,{ini}]
+----
+n Code = G0 X{LASER_OFFSET X axis} Y[{LASER_OFFSET Y axis} + 3]
+n Code = G53 G0[{ZAXIS_Z MAX_LIMIT} - 1.001]
+----
 
 Multiple codes can be run by separating the codes with a "\" (backslash) character.
 The exception is the special commands which are required to be a single command per button.
