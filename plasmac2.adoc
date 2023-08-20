@@ -20,19 +20,19 @@ See <<plasmac2:update,Update plasmac2>> for information on updating plasmac2.
 plasmac2 and all of its related software are released under GPLv2.
 
 == Introduction
-plasmac2 is a GUI extension to AXIS for plasma cutting which utilises the https://linuxcnc.org/docs/devel/html/man/man9/plasmac.9.html[plasmac component] for controlling a plasma table from LinuxCNC master branch (v2.10) or later using the Debian Buster or similar distribution.
+plasmac2 is a GUI extension to AXIS for plasma cutting which utilises the https://linuxcnc.org/docs/devel/html/man/man9/plasmac.9.html[plasmac component] for controlling a plasma table from LinuxCNC master branch (v2.10) or later using the Debian Buster and later or any similar Linux distribution.
 
 The plasmac2 GUI supports up to nine axes.
 
 The plasmac2 GUI will run on any hardware that is supported by LinuxCNC master branch (v2.10) or later provided there are enough hardware I/O pins to fulfill the requirements of a plasma configuration.
 
-There are two available formats:
+There are two available formats, both with user selectable sizes:
 
 [[plasmac2:formats]]
-* landscape with a minimum resolution of 720 x 644
-* portrait with a minimum resolution of 798 x 456
+* landscape with a minimum resolution of 798 x 456
+* portrait  with a minimum resolution of 644 x 720
 
-Minimum resolution is obtained by using a font size of 7, the font size is adjustable from 7 through 20.
+Minimum resolution is obtained by using a font size of 7, the font size is selectable from 7 through 20.
 
 .Landscape (Font: 10, Resolution: 983 x 562)
 image::images/plasmac2_landscape.png[width=800,align="center"]
@@ -51,6 +51,7 @@ plasmac2 has the same http://linuxcnc.org/docs/devel/html/plasma/qtplasmac.html#
 - A working QtPlasmaC configuration must be installed.
 - The http://linuxcnc.org/docs/devel/html/plasma/qtplasmac.html#plasma:initial-setup[Initial Setup] procedure for QtPlasmaC must be completed.
 
+Migrating to plasmac2 has no affect on the existing QtPlasmaC configuration, it will remain intact and fully operational.
 
 == Migrating To plasmac2
 To begin a migration, call the migrator from a terminal by using one of the following commands depending on the LinuxCNC installation type:
@@ -65,11 +66,11 @@ python3 /usr/share/doc/linuxcnc/examples/sample-configs/sim/axis/plasmac2/plasma
 python3 ~/linuxcnc-dev/configs/sim/axis/plasmac2/plasmac2/migrate.py
 ----
 
-Click *Migrate* then select the INI file of the config you wish to migrate.
+Click *Migrate* then select the INI file of the configuration you wish to migrate.
 
-You will then be prompted for the directory name of the new config which by default will be the original QtPlasmaC directory name appended with __plasmac2_.
+You will then be prompted for the directory name of the new configuration which by default will be the original QtPlasmaC directory name appended with __plasmac2_ but can be changed to any valid Linux name.
 
-If you change the new directory name to the same as the original QtPlasmaC config then the QtPlasmaC directory name will be appended with __qtplasmac_.
+If you change the new directory name to the same as the original QtPlasmaC configuration then the original QtPlasmaC directory name will be appended with __qtplasmac_.
 
 It is possible that some HAL commands may be incompatible with plasma2, if this is the case then a notification will be shown listing any incompatibilities.
 
@@ -985,7 +986,7 @@ This page is used to display GUI configuration parameters, button text, and shut
 |*Name*     |*Description*
 |_Save All_ |Save the currently displayed settings to the _<machine_name>_.prefs file.
 |_Reload_   |Reload all the settings from the _<machine_name>_.prefs file.
-|_Backup_   |Create a compressed backup of the config directory to the users home directory.
+|_Backup_   |Create a compressed backup of the configuration directory to the users home directory.
 |_Close_    |Close the <<plasmac2:setup-page,Setup Page>> and return to the <<plasmac2:main-page,Main Page>>.
 |===
 
@@ -1446,7 +1447,7 @@ It is recommended that the path tolerance is set by placing the appropriate G64 
 
 The provided G-code filter program will test for the existence of a `G64 Pn` command prior to the first motion command.
 If no G64 command is found it will insert a `G64 P0.1` command which sets the path tolerance to 0.1mm.
-For a imperial config the command will be `G64 P0.004`.
+For a imperial configuration the command will be `G64 P0.004`.
 
 .For Metric:
 [source,{ngc}]
@@ -2064,7 +2065,7 @@ The final step is to set the <<plasmac2:scribe-parameter,scribe delays>> require
 . `Arm Delay` - allows time for the scribe to descend to the surface of the material.
 . `On Delay` - allows time for the scribe to start before motion begins.
 
-Save the parameters in the Config tab.
+Save the parameters in the Parameters tab.
 
 After the above directions are completed, the scribe may be tested manually by issuing a `M3 $1 S1` command in the MDI input. The user may find it helpful to use this method to scribe a small divot and then try to pulse the torch in the same location to align the offsets between the scribe and the torch.
 
@@ -2312,7 +2313,7 @@ If unsure of the HAL pin's full name, the user may start LinuxCNC and run *HalSh
 It is possible to add custom Python code to change some existing functions or to add new ones.
 It is also possible to add custom HAL pins to the HAL component `axisui` that can be manipulated by the custom python code.
 
-Custom python code can be added in to two different files that are provided in the config directory and custom HAL pins can be created in one file provided in the config directory.
+Custom python code can be added in to two different files that are provided in the configuration directory and custom HAL pins can be created in one file provided in the configuration directory.
 
 All of these files have simple examples that have been commented so they do not execute.
 
