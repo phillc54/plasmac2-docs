@@ -869,6 +869,7 @@ This page is used to display configuration parameters that are modified infreque
                    It is mainly used to compensate for high probing speeds.
 |_Ohmic Retries_  |Set the number of times plasmac2 will retry a failed ohmic probe before falling back to the float switch for material detection.
 |_Skip IHS_       |Set the distance threshold used to determine if an Initial Height Sense (probe) can be skipped for the current cut, see <<plasmac2:ihs-skip,IHS Skip>>.
+|_Offset Speed_   |This sets the speed at which the probe will move to the offset position in the X axis and Y axis.
 |===
 
 [NOTE]
@@ -1674,6 +1675,8 @@ where `n.n` is the offset of the probe from the torch center in machine units fo
 Each of these parameters is optional and also may appear in any order. If a parameter is not detected then the default is 0.0. There can be no space after the X or Z, lower case is permissible.
 
 When this variable appears in the INI file with either X or Y not equal to zero then plasmac2 will do all `Ohmic Probing` as `Offset Probing`.
+If Offset Probing is valid then the feed rate at which the X and Y axes move to the offset position may be adjusted by the use of the *Offset Speed* parameter in the PROBING frame of the <<plasmac2:parameters-page,PARAMETERS Page>>.
+
 When a probe sequence has begun, the `plasmac.ohmic-enable` pin will be set True causing the probe to extend. When the material is detected the `plasmac.ohmic-enable` pin will be reset to false causing the probe to retract.
 
 The probe will begin moving to the offset position simultaneously with the Z axis moving down to the `Probe Height`, probing will not commence unless the deployment timer has completed.

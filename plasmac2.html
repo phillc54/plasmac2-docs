@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 9.0.0rc2" />
+<meta name="generator" content="AsciiDoc 10.2.0" />
 <title>plasmac2 User Manual</title>
 <link rel="stylesheet" href="utils/styles/asciidoc.css" type="text/css" />
 
@@ -2019,6 +2019,10 @@ cellspacing="0" cellpadding="4">
 <td align="left" valign="top"><p class="table"><em>Skip IHS</em></p></td>
 <td align="left" valign="top"><p class="table">Set the distance threshold used to determine if an Initial Height Sense (probe) can be skipped for the current cut, see <a href="#plasmac2:ihs-skip">IHS Skip</a>.</p></td>
 </tr>
+<tr>
+<td align="left" valign="top"><p class="table"><em>Offset Speed</em></p></td>
+<td align="left" valign="top"><p class="table">This sets the speed at which the probe will move to the offset position in the X axis and Y axis.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -3639,7 +3643,8 @@ http://www.gnu.org/software/src-highlite -->
 <div class="paragraph"><p>where <code>n.n</code> is the offset of the probe from the torch center in machine units for the X and Y axes and <code>t.t</code> is the time in seconds to allow for any mechanical deployment of the probe if required.</p></div>
 <div class="paragraph"><p>Each of these parameters is optional and also may appear in any order. If a parameter is not detected then the default is 0.0. There can be no space after the X or Z, lower case is permissible.</p></div>
 <div class="paragraph"><p>When this variable appears in the INI file with either X or Y not equal to zero then plasmac2 will do all <code>Ohmic Probing</code> as <code>Offset Probing</code>.
-When a probe sequence has begun, the <code>plasmac.ohmic-enable</code> pin will be set True causing the probe to extend. When the material is detected the <code>plasmac.ohmic-enable</code> pin will be reset to false causing the probe to retract.</p></div>
+If Offset Probing is valid then the feed rate at which the X and Y axes move to the offset position may be adjusted by the use of the <strong>Offset Speed</strong> parameter in the PROBING frame of the <a href="#plasmac2:parameters-page">PARAMETERS Page</a>.</p></div>
+<div class="paragraph"><p>When a probe sequence has begun, the <code>plasmac.ohmic-enable</code> pin will be set True causing the probe to extend. When the material is detected the <code>plasmac.ohmic-enable</code> pin will be reset to false causing the probe to retract.</p></div>
 <div class="paragraph"><p>The probe will begin moving to the offset position simultaneously with the Z axis moving down to the <code>Probe Height</code>, probing will not commence unless the deployment timer has completed.
 It is required that the <code>Probe Height</code> in the Probing frame of the <a href="#plasmac2:parameters-page">Parameters Page</a> is above the top of the material to ensure that the probe is fully offset to the correct X/Y position before the final vertical probe down movement.</p></div>
 <div class="admonitionblock">
@@ -6218,7 +6223,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-08-20 16:00:53 AEST
+ 2023-10-23 16:31:37 AEDT
 </div>
 </div>
 </body>
