@@ -1661,6 +1661,8 @@ If the probe is mechanically deployed then it needs to extend/retract rather qui
 
 To use this feature, the user must set the probe's offset from the torch center by following the procedure described in <<plasmac2:peripheral-offsets,Peripheral Offsets>>.
 
+If `Offset Probing` is valid then the feed rate at which the X and Y axes move to the offset position may be adjusted by the use of the `Offset Speed` parameter in the Probing frame of the <<plasmac2:parameters-page,Parameters Page>>.
+
 To modify the offsets manually, the user could edit either or both the following lines in the `[OFFSET_PROBING]` section of the _<machine_name>_.prefs file:
 
 [source,{ini}]
@@ -1675,11 +1677,11 @@ where `n.n` is the offset of the probe from the torch center in machine units fo
 Each of these parameters is optional and also may appear in any order. If a parameter is not detected then the default is 0.0. There can be no space after the X or Z, lower case is permissible.
 
 When this variable appears in the INI file with either X or Y not equal to zero then plasmac2 will do all `Ohmic Probing` as `Offset Probing`.
-If Offset Probing is valid then the feed rate at which the X and Y axes move to the offset position may be adjusted by the use of the `Offset Speed` parameter in the PROBING frame of the <<plasmac2:parameters-page,PARAMETERS Page>>.
 
 When a probe sequence has begun, the `plasmac.ohmic-enable` pin will be set True causing the probe to extend. When the material is detected the `plasmac.ohmic-enable` pin will be reset to false causing the probe to retract.
 
 The probe will begin moving to the offset position simultaneously with the Z axis moving down to the `Probe Height`, probing will not commence unless the deployment timer has completed.
+
 It is required that the `Probe Height` in the Probing frame of the <<plasmac2:parameters-page,Parameters Page>> is above the top of the material to ensure that the probe is fully offset to the correct X/Y position before the final vertical probe down movement.
 
 [IMPORTANT]
