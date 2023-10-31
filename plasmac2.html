@@ -2215,13 +2215,40 @@ cellspacing="0" cellpadding="4">
 </div>
 </div>
 <div class="sect3">
+<h4 id="plasmac2:pierce-parameter">Pierce Only</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 33. Pierce Only</caption>
+<col width="20%" />
+<col width="80%" />
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Name</strong></p></td>
+<td align="left" valign="top"><p class="table"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><em>X Offset</em></p></td>
+<td align="left" valign="top"><p class="table">Moves the pierce point this distance along the X axis when piercing in Pierce Only mode.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><em>Y Offset</em></p></td>
+<td align="left" valign="top"><p class="table">Moves the pierce point this distance along the Y axis when piercing in Pierce Only mode.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_arc">Arc</h4>
 <div class="tableblock">
 <table rules="all"
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 33. Arc</caption>
+<caption class="title">Table 34. Arc</caption>
 <col width="20%" />
 <col width="10%" />
 <col width="70%" />
@@ -2294,7 +2321,7 @@ To further clarify, to have a valid Arc OK, the arc voltage must fall between th
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 34. Spotting</caption>
+<caption class="title">Table 35. Spotting</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2332,7 +2359,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 35. Buttons</caption>
+<caption class="title">Table 36. Buttons</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2367,7 +2394,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 36. GUI</caption>
+<caption class="title">Table 37. GUI</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2444,7 +2471,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 37. Plasmac</caption>
+<caption class="title">Table 38. Plasmac</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2470,7 +2497,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 38. Utilities</caption>
+<caption class="title">Table 39. Utilities</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2502,7 +2529,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 39. Colors</caption>
+<caption class="title">Table 40. Colors</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2557,7 +2584,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 40. Torch Enable Text</caption>
+<caption class="title">Table 41. Torch Enable Text</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2584,7 +2611,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 41. User Button Entry</caption>
+<caption class="title">Table 42. User Button Entry</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -2646,7 +2673,7 @@ To return all the <code>Name</code> and <code>Code</code> text to their last sav
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 42. Shutdown Message</caption>
+<caption class="title">Table 43. Shutdown Message</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -3667,7 +3694,7 @@ http://www.gnu.org/software/src-highlite -->
 </li>
 <li>
 <p>
-<strong>Pierce Only</strong> - only pierces the material at each cut start position, useful prior to a <strong>Normal Cut</strong> on <a href="#plasmac2:thick-materials">thick materials</a>
+<a href="#plasmac2:pierce-only"><strong>Pierce Only</strong></a> - only pierces the material at each cut start position, useful prior to a <strong>Normal Cut</strong> on <a href="#plasmac2:thick-materials">thick materials</a>
 </p>
 </li>
 </ol></div>
@@ -4032,10 +4059,12 @@ This clears the Z offsets and returns the torch to the starting position.</td>
 <h3 id="plasmac2:thick-materials">Thick Material</h3>
 <div class="paragraph"><p>Cutting thick materials can be problematic in that the large amount of molten metal caused by piercing can shorten the life of consumables and also may cause a puddle high enough that the torch may hit the puddle while moving to cut height.</p></div>
 <div class="paragraph"><p>The are two functions built into plasmac2 to help alleviate these issues.</p></div>
-<div class="paragraph"><div class="title"><strong><em>Pierce Only</em></strong></div><p><strong>Pierce Only</strong> mode converts the loaded G-code program and then runs the program to pierce the material at the start position of each cut. Scribe and Spotting commands will be ignored and no pierce will take place in those locations.</p></div>
+<div class="paragraph" id="plasmac2:pierce-only"><div class="title"><strong><em>Pierce Only</em></strong></div><p><strong>Pierce Only</strong> mode converts the loaded G-code program and then runs the program to pierce the material at the start position of each cut. Scribe and Spotting commands will be ignored and no pierce will take place in those locations.</p></div>
 <div class="paragraph"><p>This mode is useful for thick materials which may produce enough dross on the material surface from piercing to interfere with the torch while cutting. The entire sheet can pierced and then cleaned off prior to cutting.</p></div>
 <div class="paragraph"><p>It is possible to use near-end-of-life consumables for piercing and then they can be swapped out for good consumables to be used while cutting.</p></div>
-<div class="paragraph"><p><strong>Pierce Only</strong> is one of two different <a href="#plasmac2:cut-types">cut types</a></p></div>
+<div class="paragraph"><p>The pierce location during <strong>Pierce Only</strong> mode may be offset in the X and/or Y axes to ensure that the arc is able to transfer correctly when piercing after returning to the <strong>Normal Cut</strong> mode.
+The parameters for the X and Y Offsets are in the Pierce Only frame of the <a href="#plasmac2:parameters-page">Parameters Page</a>.
+<strong>Pierce Only</strong> is one of two different <a href="#plasmac2:cut-types">cut types</a></p></div>
 <div class="paragraph"><div class="title"><strong><em>Puddle Jump</em></strong></div><p><code>Puddle Jump</code> is the height that the torch will move to after piercing and prior to moving to <code>Cut Height</code> and is expressed as a percentage of <code>Pierce Height</code>.
 This allows the torch to clear any puddle of molten material tht may be caused by piercing.
 The maximum allowable height is 200% of the <code>Pierce Height</code></p></div>
@@ -4697,7 +4726,7 @@ It is also possible to add custom HAL pins to the HAL component <code>axisui</co
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 43. Custom Files</caption>
+<caption class="title">Table 44. Custom Files</caption>
 <col width="20%" />
 <col width="80%" />
 <tbody>
@@ -5522,7 +5551,7 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 44. Different states plasmac2 could encounter</caption>
+<caption class="title">Table 45. Different states plasmac2 could encounter</caption>
 <col width="5%" />
 <col width="23%" />
 <col width="70%" />
@@ -6223,7 +6252,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-10-28 13:54:15 AEDT
+ 2023-10-31 12:35:23 AEDT
 </div>
 </div>
 </body>

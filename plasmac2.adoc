@@ -941,6 +941,16 @@ Large P gain adjustments can result in over correction and oscillations which ma
 |_On Delay_  |Set the delay (in seconds) to allow the scribe mechanism to start before beginning motion.
 |===
 
+[[plasmac2:pierce-parameter]]
+==== Pierce Only
+.Pierce Only
+[cols="4,16"]
+|===
+|*Name*      |*Description*
+|_X Offset_ |Moves the pierce point this distance along the X axis when piercing in Pierce Only mode.
+|_Y Offset_ |Moves the pierce point this distance along the Y axis when piercing in Pierce Only mode.
+|===
+
 ==== Arc
 .Arc
 [cols="4,2,14"]
@@ -1692,7 +1702,7 @@ It is required that the `Probe Height` in the Probing frame of the <<plasmac2:pa
 plasmac2 allows two different cut modes:
 
 . *Normal Cut* - runs the loaded G-code program to pierce then cut.
-. *Pierce Only* - only pierces the material at each cut start position, useful prior to a *Normal Cut* on <<plasmac2:thick-materials,thick materials>>
+. <<plasmac2:pierce-only,*Pierce Only*>> - only pierces the material at each cut start position, useful prior to a *Normal Cut* on <<plasmac2:thick-materials,thick materials>>
 
 There are two ways of enabling this feature:
 
@@ -1905,6 +1915,7 @@ Cutting thick materials can be problematic in that the large amount of molten me
 
 The are two functions built into plasmac2 to help alleviate these issues.
 
+[[plasmac2:pierce-only]]
 .*_Pierce Only_*
 *Pierce Only* mode converts the loaded G-code program and then runs the program to pierce the material at the start position of each cut. Scribe and Spotting commands will be ignored and no pierce will take place in those locations.
 
@@ -1912,6 +1923,8 @@ This mode is useful for thick materials which may produce enough dross on the ma
 
 It is possible to use near-end-of-life consumables for piercing and then they can be swapped out for good consumables to be used while cutting.
 
+The pierce location during *Pierce Only* mode may be offset in the X and/or Y axes to ensure that the arc is able to transfer correctly when piercing after returning to the *Normal Cut* mode.
+The parameters for the X and Y Offsets are in the Pierce Only frame of the <<plasmac2:parameters-page,Parameters Page>>.
 *Pierce Only* is one of two different <<plasmac2:cut-types,cut types>>
 
 .*_Puddle Jump_*
