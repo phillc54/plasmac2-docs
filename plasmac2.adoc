@@ -2376,6 +2376,7 @@ Buttons can run the following functions:
 . <<plasmac2:button-cmds,External commands>>
 . <<plasmac2:button-py,External python scripts>>
 . <<plasmac2:button-code,G-code commands>>
+. <<plasmac2:button-dual,Dual code>>
 . <<plasmac2:button-toggle,Toggle a HAL pin>>
 . <<plasmac2:button-laser,Toggle the alignment laser HAL pin>>
 . <<plasmac2:button-pulse,Pulse a HAL pin>>
@@ -2458,6 +2459,37 @@ External commands and G-code may be mixed on the same button.
 n Code = %halshow \ g0x.5y.5 \ %halmeter
 ----
 
+[[plasmac2:button-dual]]
+.*Dual Code*
+
+Dual Code allows the running of two code snippets alternately each button press.
+The button text may also alternate each button press and the indicator light may be optionally enabled.
+
+It is mandatory to specify "dual-code", the first code, the alternate button text, and the second code separated by double semicolons.
+If the indicator is required then optionally add ";; true" at the end.
+
+[source,{ini}]
+----
+n Code = dual-code ;; code1 ;; name1 ;; code2 ;; true
+----
+
+On the first button press, code1 will be run, the button text will change to name1, and if "true" is specified the indicator will light.
+
+On the second button press, code2 will be run, the button text will change to n Name, and the indicator will extinguish if lit.
+
+code1 and code2 both follow the rule of the preceding code explanations, <<plasma:button-cmds,External commands>>, <<plasma:button-py,Python code>>, and <<plasma:button-code,G-code>>. Multiple codes as well as mixing codes are allowed.
+
+The following code will allow the user to use a single button to run two code snippets alternately each button press:
+
+[source,{ini}]
+----
+n Name = X+10
+n Code = dual-code ;; G91\G0X10\G90 ;; X-10 ;; G91\G0X-10\G90
+----
+
+The original label will be X+10, when pressed the torch will move positive 10 in the X axis and the label will change to X-10.
+When pressed again the torch will move negative 10 in the X axis and the label will change to X+10.
+
 [[plasmac2:button-toggle]]
 ==== Toggle HAL Pin
 The following code will allow the user to use a button to invert the current state of a HAL bit pin:
@@ -2473,6 +2505,14 @@ The button colors will follow the state of the HAL pin.
 
 After setting the code, upon clicking, the button will invert colors and the HAL pin will invert pin state.
 The button will stay "latched" until the button is clicked again, which will return the button to the original colors and the HAL pin to the original pin state.
+
+It is also possible for the user to specify alternate text which will display on the button while ever it is in the latched on condition.
+To specify the alternate text, use a double semicolon followed by the required text. This must be the last item in the button code.
+
+[source,{ini}]
+----
+n Code = toggle-halpin the-hal-pin-name ;; PIN\TOGGLED
+----
 
 There are three <<plasmac2:ext-hal-pin,External HAL Pins>> that are available to toggle as an output,
 the pin names are `qtplasmac.ext_out_0`, `qtplasmac.ext_out_1`, and `qtplasmac.ext_out_2`.

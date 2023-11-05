@@ -4799,6 +4799,11 @@ http://www.gnu.org/software/src-highlite -->
 </li>
 <li>
 <p>
+<a href="#plasmac2:button-dual">Dual code</a>
+</p>
+</li>
+<li>
+<p>
 <a href="#plasmac2:button-toggle">Toggle a HAL pin</a>
 </p>
 </li>
@@ -4934,6 +4939,29 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> %halshow \ g0x.5y.5 \ %halmeter</span></tt></pre></div></div>
+<div class="paragraph" id="plasmac2:button-dual"><div class="title"><strong>Dual Code</strong></div><p>Dual Code allows the running of two code snippets alternately each button press.
+The button text may also alternate each button press and the indicator light may be optionally enabled.</p></div>
+<div class="paragraph"><p>It is mandatory to specify "dual-code", the first code, the alternate button text, and the second code separated by double semicolons.
+If the indicator is required then optionally add ";; true" at the end.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.9
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> dual-code ;; code1 ;; name1 ;; code2 ;; true</span></tt></pre></div></div>
+<div class="paragraph"><p>On the first button press, code1 will be run, the button text will change to name1, and if "true" is specified the indicator will light.</p></div>
+<div class="paragraph"><p>On the second button press, code2 will be run, the button text will change to n Name, and the indicator will extinguish if lit.</p></div>
+<div class="paragraph"><p>code1 and code2 both follow the rule of the preceding code explanations, <a href="#plasma:button-cmds">External commands</a>, <a href="#plasma:button-py">Python code</a>, and <a href="#plasma:button-code">G-code</a>. Multiple codes as well as mixing codes are allowed.</p></div>
+<div class="paragraph"><p>The following code will allow the user to use a single button to run two code snippets alternately each button press:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.9
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Name </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> X+10</span>
+<span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> dual-code ;; G91\G0X10\G90 ;; X-10 ;; G91\G0X-10\G90</span></tt></pre></div></div>
+<div class="paragraph"><p>The original label will be X+10, when pressed the torch will move positive 10 in the X axis and the label will change to X-10.
+When pressed again the torch will move negative 10 in the X axis and the label will change to X+10.</p></div>
 </div>
 <div class="sect3">
 <h4 id="plasmac2:button-toggle">Toggle HAL Pin</h4>
@@ -4948,6 +4976,14 @@ http://www.gnu.org/software/src-highlite -->
 <div class="paragraph"><p>The button colors will follow the state of the HAL pin.</p></div>
 <div class="paragraph"><p>After setting the code, upon clicking, the button will invert colors and the HAL pin will invert pin state.
 The button will stay "latched" until the button is clicked again, which will return the button to the original colors and the HAL pin to the original pin state.</p></div>
+<div class="paragraph"><p>It is also possible for the user to specify alternate text which will display on the button while ever it is in the latched on condition.
+To specify the alternate text, use a double semicolon followed by the required text. This must be the last item in the button code.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.9
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> toggle-halpin the-hal-pin-name ;; PIN\TOGGLED</span></tt></pre></div></div>
 <div class="paragraph"><p>There are three <a href="#plasmac2:ext-hal-pin">External HAL Pins</a> that are available to toggle as an output,
 the pin names are <code>qtplasmac.ext_out_0</code>, <code>qtplasmac.ext_out_1</code>, and <code>qtplasmac.ext_out_2</code>.
 HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.</p></div>
@@ -6252,7 +6288,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-10-31 12:35:23 AEDT
+ 2023-11-05 15:02:00 AEDT
 </div>
 </div>
 </body>
