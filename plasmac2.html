@@ -166,7 +166,7 @@ cellspacing="0" cellpadding="4">
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>plasmac2</em></p></td>
-<td align="left" valign="top"><p class="table">Link to the directory containing common qtplasmac support files.</p></td>
+<td align="left" valign="top"><p class="table">Link to the directory containing common plasmac2 support files.</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>user_commands.py</em></p></td>
@@ -3209,7 +3209,7 @@ http://www.gnu.org/software/src-highlite -->
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="color: #009900">qtplasmac.laser_on</span></tt></pre></div></div>
+<pre><tt><span style="color: #009900">axisui.laser_on</span></tt></pre></div></div>
 <div class="paragraph"><p><strong>To set the origin with zero rotation:</strong></p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
@@ -3219,7 +3219,7 @@ Click the <strong>Laser</strong> button.
 </li>
 <li>
 <p>
-<strong>Laser</strong> button label will change to <strong>Mark</strong> and the HAL pin named qtplasmac.laser_on will be turned on.
+<strong>Laser</strong> button label will change to <strong>Mark</strong> and the HAL pin named axisui.laser_on will be turned on.
 </p>
 </li>
 <li>
@@ -3234,7 +3234,7 @@ Press <strong>Mark</strong>. The <strong>Mark</strong> button label will change 
 </li>
 <li>
 <p>
-Press <strong>Origin</strong>. The <strong>Origin</strong> button label will change to <strong>Mark</strong> and the HAL pin named qtplasmac.laser_on will be turned off.
+Press <strong>Origin</strong>. The <strong>Origin</strong> button label will change to <strong>Mark</strong> and the HAL pin named axisui.laser_on will be turned off.
 </p>
 </li>
 <li>
@@ -3257,7 +3257,7 @@ Click the <strong>Laser</strong> button.
 </li>
 <li>
 <p>
-<strong>Laser</strong> button label will change to <strong>Mark</strong> and the HAL pin named qtplasmac.laser_on will be turned on.
+<strong>Laser</strong> button label will change to <strong>Mark</strong> and the HAL pin named axisui.laser_on will be turned on.
 </p>
 </li>
 <li>
@@ -3277,7 +3277,7 @@ Jog until the laser cross hairs are at the origin point of the material.
 </li>
 <li>
 <p>
-Press <strong>Origin</strong>. The <strong>Origin</strong> button label will change to <strong>Mark</strong> and the HAL pin named qtplasmac.laser_on will be turned off.
+Press <strong>Origin</strong>. The <strong>Origin</strong> button label will change to <strong>Mark</strong> and the HAL pin named axisui.laser_on will be turned off.
 </p>
 </li>
 <li>
@@ -3300,7 +3300,7 @@ Press the <strong>Laser</strong> button and hold for longer than 750 mSec.
 </li>
 <li>
 <p>
-<strong>Laser</strong> button label will change to <strong>Laser</strong> and the HAL pin named qtplasmac.laser_on will be turned off.
+<strong>Laser</strong> button label will change to <strong>Laser</strong> and the HAL pin named axisui.laser_on will be turned off.
 </p>
 </li>
 <li>
@@ -4152,7 +4152,7 @@ Click the <strong>Laser</strong> button.
 </li>
 <li>
 <p>
-<strong>Laser</strong> button will change to disabled, the HAL pin named qtplasmac.laser_on will be turned on and the X and Y axis will offset so that the laser cross hairs will indicate the starting coordinates of the cut when it is resumed.
+<strong>Laser</strong> button will change to disabled, the HAL pin named axisui.laser_on will be turned on and the X and Y axis will offset so that the laser cross hairs will indicate the starting coordinates of the cut when it is resumed.
 </p>
 </li>
 <li>
@@ -4976,6 +4976,13 @@ http://www.gnu.org/software/src-highlite -->
 <div class="paragraph"><p>The button colors will follow the state of the HAL pin.</p></div>
 <div class="paragraph"><p>After setting the code, upon clicking, the button will invert colors and the HAL pin will invert pin state.
 The button will stay "latched" until the button is clicked again, which will return the button to the original colors and the HAL pin to the original pin state.</p></div>
+<div class="paragraph"><p>It is possible for the user to mark the associated HAL pin as being required to be turned "ON" before starting a cut cycle by adding <code>runcritical</code> or <code>cutcritical</code> after the HAL pin in the button code. If <strong>TORCH ENABLE</strong> is checked and <strong>Run</strong> is pressed while the <code>runcritical</code> button is not "ON" then the user will receive a dialog warning them as such and asking to Continue or Cancel.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.9
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> toggle-halpin the-hal-pin-name runcritical</span></tt></pre></div></div>
 <div class="paragraph"><p>It is also possible for the user to specify alternate text which will display on the button while ever it is in the latched on condition.
 To specify the alternate text, use a double semicolon followed by the required text. This must be the last item in the button code.</p></div>
 <div class="listingblock">
@@ -4983,17 +4990,17 @@ To specify the alternate text, use a double semicolon followed by the required t
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> toggle-halpin the-hal-pin-name ;; PIN\TOGGLED</span></tt></pre></div></div>
-<div class="paragraph"><p>There are three <a href="#plasmac2:ext-hal-pin">External HAL Pins</a> that are available to toggle as an output,
-the pin names are <code>qtplasmac.ext_out_0</code>, <code>qtplasmac.ext_out_1</code>, and <code>qtplasmac.ext_out_2</code>.
-HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.</p></div>
-<div class="paragraph"><p>For toggle-halpin buttons, it is possible for the user to mark the associated HAL pin as being required to be turned "ON" before starting a cut cycle by adding <code>runcritical</code> after the HAL pin in the button code. If <strong>TORCH ENABLE</strong> is checked and <strong>Run</strong> is pressed while the <code>runcritical</code> button is not "ON" then the user will receive a dialog warning them as such and asking to Continue or Cancel.</p></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> toggle-halpin the-hal-pin-name ;; HALPIN\TOGGLED</span></tt></pre></div></div>
+<div class="paragraph"><p>If alternate text as described above is required on a runcritical button then a code example would be:</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.9
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> toggle-halpin the-hal-pin-name runcritical</span></tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> toggle-halpin the-hal-pin-name runcritical ;; HALPIN\TOGGLED</span></tt></pre></div></div>
+<div class="paragraph"><p>There are three <a href="#plasmac2:ext-hal-pin">External HAL Pins</a> that are available to toggle as an output,
+the pin names are <code>axisui.ext.out_0</code>, <code>axisui.ext.out_1</code>, and <code>axisui.ext.out_2</code>.
+HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the AXIS GUI has loaded.</p></div>
 </div>
 <div class="sect3">
 <h4 id="plasmac2:button-pulse">Pulse HAL Pin</h4>
@@ -5010,8 +5017,8 @@ http://www.gnu.org/software/src-highlite -->
 <div class="paragraph"><p>After setting the code, upon clicking the button, the button will invert colors, the HAL pin will invert pin state, and the time remaining will be displayed on the button.
 The button color and the pin state will stay inverted until the pulse duration timer has completed, which will return the button to the original colors, the HAL pin to the original pin state, and the original button name.</p></div>
 <div class="paragraph"><p>An active pulse can be canceled by clicking the button again.</p></div>
-<div class="paragraph"><p>There are three <a href="#plasmac2:ext-hal-pin">External HAL Pins</a> that are available to pulse as an output, the pin names are <code>qtplasmac.ext_out_0</code>, <code>qtplasmac.ext_out_1</code>, and <code>qtplasmac.ext_out_2</code>.
-HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.</p></div>
+<div class="paragraph"><p>There are three <a href="#plasmac2:ext-hal-pin">External HAL Pins</a> that are available to pulse as an output, the pin names are <code>axisui.ext.out_0</code>, <code>axisui.ext.out_1</code>, and <code>axisui.ext.out_2</code>.
+HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the AXIS GUI has loaded.</p></div>
 </div>
 <div class="sect3">
 <h4 id="plasmac2:button-probe">Probe Test</h4>
@@ -5029,7 +5036,7 @@ http://www.gnu.org/software/src-highlite -->
 <td class="icon">
 <div class="title">Note</div>
 </td>
-<td class="content">Enabling a user button as a Probe Test button will enable an <a href="#plasmac2:ext-hal-pin">external HAL pin</a> that may be connected from a pendant etc. HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the QtPlasmac GUI has loaded.</td>
+<td class="content">Enabling a user button as a Probe Test button will enable an <a href="#plasmac2:ext-hal-pin">external HAL pin</a> that may be connected from a pendant etc. HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the AXIS GUI has loaded.</td>
 </tr></table>
 </div>
 </div>
@@ -5127,7 +5134,7 @@ http://www.gnu.org/software/src-highlite -->
 <div class="title">Note</div>
 </td>
 <td class="content">Enabling a user button as a Torch Pulse button will enable an <a href="#plasmac2:ext-hal-pin">external HAL pin</a> that may be connected from a pendant etc.<br />
-HAL connections to this HAL pin need to be specified in a postgui HAL file as the HAL pin is not available until the QtPlasmac GUI has loaded.</td>
+HAL connections to this HAL pin need to be specified in a postgui HAL file as the HAL pin is not available until the AXIS GUI has loaded.</td>
 </tr></table>
 </div>
 </div>
@@ -5144,10 +5151,10 @@ http://www.gnu.org/software/src-highlite -->
 <div class="sect3">
 <h4 id="plasmac2:button-framing">Framing</h4>
 <div class="paragraph"><p>Framing is the ability to move the torch around the perimeter of a rectangle that encompasses the bounds of the current job.</p></div>
-<div class="paragraph"><p>The laser enable HAL pin (qtplasmac.laser_on) will be turned on during the framing moves
+<div class="paragraph"><p>The laser enable HAL pin (axisui.laser_on) will be turned on during the framing moves
 and any X/Y offsets for the laser pointer in the <em>&lt;machine_name&gt;</em>.prefs file will also be applied to the X/Y motion.
 After the framing motion is completed,
-the torch will move to the X0 Y0 position to clear any applied laser offsets and qtplasmac.laser_on will be turned off.</p></div>
+the torch will move to the X0 Y0 position to clear any applied laser offsets and axisui.laser_on will be turned off.</p></div>
 <div class="paragraph"><p>Upon starting a Framing cycle,
 it is important to note that by default the Z axis will be moved to a height of [AXIS_Z]MAX_LIMIT - 5mm (0.2") before X/Y motion begins.</p></div>
 <div class="paragraph"><p>The velocity for the XY movements of the Framing motion can be specified so that Framing motion always occurs at a set velocity.
@@ -5212,7 +5219,7 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> framing usecurrentzheight F100</span></tt></pre></div></div>
 <div class="paragraph"><p>Enabling a user button as a framing button will enable an <a href="#plasmac2:ext-hal-pin">external HAL pin</a> that may be connected from a pendant etc.
-HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the QtPlasmac GUI has loaded.</p></div>
+HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the AXIS GUI has loaded.</p></div>
 </div>
 <div class="sect3">
 <h4 id="plasmac2:button-mancut">Manual Cut</h4>
@@ -5233,7 +5240,7 @@ The directory name is optional and if omitted will default to the last directory
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> latest-file /home/me/linuxcnc/nc_files/qtplasmac-test</span></tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> latest-file /home/me/linuxcnc/nc_files/plasmac2-test</span></tt></pre></div></div>
 </div>
 </div>
 <div class="sect2">
@@ -5360,7 +5367,7 @@ and making an initial Z movement to bring the torch near the top of travel at th
 <div class="sect2">
 <h3 id="plasmac2:ext-hal-pin">External HAL Pins</h3>
 <div class="paragraph"><p>plasmac2 creates some HAL pins that may be used to connect a momentary external button or pendant etc.</p></div>
-<div class="paragraph"><p>HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.</p></div>
+<div class="paragraph"><p>HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the AXIS GUI has loaded.</p></div>
 <div class="paragraph"><p>The following HAL bit pins are always created. The HAL pin has the identical behaviour of the related plasmac2 GUI button.</p></div>
 <div class="tableblock">
 <table rules="all"
@@ -6288,7 +6295,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2023-11-05 15:02:00 AEDT
+ 2024-01-16 17:08:57 AEDT
 </div>
 </div>
 </body>

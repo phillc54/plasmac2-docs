@@ -88,7 +88,7 @@ After a successful plasmac2 installation, the following files are created in the
 |_custom_postgui.hal_   |HAL file for user customization which is run after the GUI has initialized.
 |_shutdown.hal_         |HAL file which is run during the shutdown sequence.
 |_tool.tbl_             |Tool table used to store offset information for additional tools (scribe, etc.) used by the plasmac2 configuration.
-|_plasmac2_             |Link to the directory containing common qtplasmac support files.
+|_plasmac2_             |Link to the directory containing common plasmac2 support files.
 |_user_commands.py_     |Users custom python code, run once at startup.
 |_user_hal.py_          |Users custom hal pins, run once at startup.
 |_user_periodic.py_     |Users custom python code, run every period (default = 100mS).
@@ -1416,34 +1416,34 @@ Additionally, the laser can be tied to any available output to turn the laser on
 
 [source,{hal}]
 ----
-qtplasmac.laser_on
+axisui.laser_on
 ----
 
 *To set the origin with zero rotation:*
 
 . Click the *Laser* button.
-. *Laser* button label will change to *Mark* and the HAL pin named qtplasmac.laser_on will be turned on.
+. *Laser* button label will change to *Mark* and the HAL pin named axisui.laser_on will be turned on.
 . Jog until the laser cross hairs are on top of the desired origin point.
 . Press *Mark*. The *Mark* button label will change to *Origin*.
-. Press *Origin*. The *Origin* button label will change to *Mark* and the HAL pin named qtplasmac.laser_on will be turned off.
+. Press *Origin*. The *Origin* button label will change to *Mark* and the HAL pin named axisui.laser_on will be turned off.
 . The torch will now move to the X0 Y0 position.
 . The offset is now successful set.
 
 *To set the origin with rotation:*
 
 . Click the *Laser* button.
-. *Laser* button label will change to *Mark* and the HAL pin named qtplasmac.laser_on will be turned on.
+. *Laser* button label will change to *Mark* and the HAL pin named axisui.laser_on will be turned on.
 . Jog until the laser cross hairs are at the edge of the material a suitable distance away from the desired origin point.
 . Press *Mark*. The *Mark* button label will change to *Origin*.
 . Jog until the laser cross hairs are at the origin point of the material.
-. Press *Origin*. The *Origin* button label will change to *Mark* and the HAL pin named qtplasmac.laser_on will be turned off.
+. Press *Origin*. The *Origin* button label will change to *Mark* and the HAL pin named axisui.laser_on will be turned off.
 . The torch will now move to the X0 Y0 position.
 . The offset is now successfully set.
 
 *To turn the laser off and cancel an alignment:*
 
 . Press the *Laser* button and hold for longer than 750 mSec.
-. *Laser* button label will change to *Laser* and the HAL pin named qtplasmac.laser_on will be turned off.
+. *Laser* button label will change to *Laser* and the HAL pin named axisui.laser_on will be turned off.
 . Release the *Laser* button.
 
 If an alignment laser has been set up then it is possible to use the laser during <<plasmac2:cut-recovery,Cut Recovery>> for accurate positioning of the new start coordinates.
@@ -1998,7 +1998,7 @@ If either the X axis offset or Y axis offset for the laser would cause the machi
 *To use a laser for cut recovery when paused during a cut:*
 
 . Click the *Laser* button.
-. *Laser* button will change to disabled, the HAL pin named qtplasmac.laser_on will be turned on and the X and Y axis will offset so that the laser cross hairs will indicate the starting coordinates of the cut when it is resumed.
+. *Laser* button will change to disabled, the HAL pin named axisui.laser_on will be turned on and the X and Y axis will offset so that the laser cross hairs will indicate the starting coordinates of the cut when it is resumed.
 . Continue the `Cut Recovery` as described above.
 
 If a laser offset is in effect when *Cancel* is pressed then this offset will also be cleared.
@@ -2506,24 +2506,31 @@ The button colors will follow the state of the HAL pin.
 After setting the code, upon clicking, the button will invert colors and the HAL pin will invert pin state.
 The button will stay "latched" until the button is clicked again, which will return the button to the original colors and the HAL pin to the original pin state.
 
-It is also possible for the user to specify alternate text which will display on the button while ever it is in the latched on condition.
-To specify the alternate text, use a double semicolon followed by the required text. This must be the last item in the button code.
-
-[source,{ini}]
-----
-n Code = toggle-halpin the-hal-pin-name ;; PIN\TOGGLED
-----
-
-There are three <<plasmac2:ext-hal-pin,External HAL Pins>> that are available to toggle as an output,
-the pin names are `qtplasmac.ext_out_0`, `qtplasmac.ext_out_1`, and `qtplasmac.ext_out_2`.
-HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.
-
-For toggle-halpin buttons, it is possible for the user to mark the associated HAL pin as being required to be turned "ON" before starting a cut cycle by adding `runcritical` after the HAL pin in the button code. If *TORCH ENABLE* is checked and *Run* is pressed while the `runcritical` button is not "ON" then the user will receive a dialog warning them as such and asking to Continue or Cancel.
+It is possible for the user to mark the associated HAL pin as being required to be turned "ON" before starting a cut cycle by adding `runcritical` or `cutcritical` after the HAL pin in the button code. If *TORCH ENABLE* is checked and *Run* is pressed while the `runcritical` button is not "ON" then the user will receive a dialog warning them as such and asking to Continue or Cancel.
 
 [source,{ini}]
 ----
 n Code = toggle-halpin the-hal-pin-name runcritical
 ----
+
+It is also possible for the user to specify alternate text which will display on the button while ever it is in the latched on condition.
+To specify the alternate text, use a double semicolon followed by the required text. This must be the last item in the button code.
+
+[source,{ini}]
+----
+n Code = toggle-halpin the-hal-pin-name ;; HALPIN\TOGGLED
+----
+
+If alternate text as described above is required on a runcritical button then a code example would be:
+
+[source,{ini}]
+----
+n Code = toggle-halpin the-hal-pin-name runcritical ;; HALPIN\TOGGLED
+----
+
+There are three <<plasmac2:ext-hal-pin,External HAL Pins>> that are available to toggle as an output,
+the pin names are `axisui.ext.out_0`, `axisui.ext.out_1`, and `axisui.ext.out_2`.
+HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the AXIS GUI has loaded.
 
 [[plasmac2:button-pulse]]
 ==== Pulse HAL Pin
@@ -2545,8 +2552,8 @@ The button color and the pin state will stay inverted until the pulse duration t
 
 An active pulse can be canceled by clicking the button again.
 
-There are three <<plasmac2:ext-hal-pin,External HAL Pins>> that are available to pulse as an output, the pin names are `qtplasmac.ext_out_0`, `qtplasmac.ext_out_1`, and `qtplasmac.ext_out_2`.
-HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.
+There are three <<plasmac2:ext-hal-pin,External HAL Pins>> that are available to pulse as an output, the pin names are `axisui.ext.out_0`, `axisui.ext.out_1`, and `axisui.ext.out_2`.
+HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the AXIS GUI has loaded.
 
 [[plasmac2:button-probe]]
 ==== Probe Test
@@ -2561,7 +2568,7 @@ n Code = probe-test 6
 ----
 
 [NOTE]
-Enabling a user button as a Probe Test button will enable an <<plasmac2:ext-hal-pin,external HAL pin>> that may be connected from a pendant etc. HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the QtPlasmac GUI has loaded.
+Enabling a user button as a Probe Test button will enable an <<plasmac2:ext-hal-pin,external HAL pin>> that may be connected from a pendant etc. HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the AXIS GUI has loaded.
 
 [[plasmac2:button-ohmic]]
 ==== Ohmic Test
@@ -2642,7 +2649,7 @@ n Code = torch-pulse 0.5
 
 [NOTE]
 Enabling a user button as a Torch Pulse button will enable an <<plasmac2:ext-hal-pin,external HAL pin>> that may be connected from a pendant etc. +
-HAL connections to this HAL pin need to be specified in a postgui HAL file as the HAL pin is not available until the QtPlasmac GUI has loaded.
+HAL connections to this HAL pin need to be specified in a postgui HAL file as the HAL pin is not available until the AXIS GUI has loaded.
 
 [[plasmac2:button-single]]
 ==== Single Cut
@@ -2657,10 +2664,10 @@ n Code = single-cut
 ==== Framing
 Framing is the ability to move the torch around the perimeter of a rectangle that encompasses the bounds of the current job.
 
-The laser enable HAL pin (qtplasmac.laser_on) will be turned on during the framing moves
+The laser enable HAL pin (axisui.laser_on) will be turned on during the framing moves
 and any X/Y offsets for the laser pointer in the _<machine_name>_.prefs file will also be applied to the X/Y motion.
 After the framing motion is completed,
-the torch will move to the X0 Y0 position to clear any applied laser offsets and qtplasmac.laser_on will be turned off.
+the torch will move to the X0 Y0 position to clear any applied laser offsets and axisui.laser_on will be turned off.
 
 Upon starting a Framing cycle,
 it is important to note that by default the Z axis will be moved to a height of [AXIS_Z]MAX_LIMIT - 5mm (0.2") before X/Y motion begins.
@@ -2706,7 +2713,7 @@ n Code = framing usecurrentzheight F100
 ----
 
 Enabling a user button as a framing button will enable an <<plasmac2:ext-hal-pin,external HAL pin>> that may be connected from a pendant etc.
-HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the QtPlasmac GUI has loaded.
+HAL connections to this HAL pin needs to be specified in a postgui HAL file as the HAL pin is not available until the AXIS GUI has loaded.
 
 [[plasmac2:button-mancut]]
 ==== Manual Cut
@@ -2724,7 +2731,7 @@ The directory name is optional and if omitted will default to the last directory
 
 [source,{ini}]
 ----
-n Code = latest-file /home/me/linuxcnc/nc_files/qtplasmac-test
+n Code = latest-file /home/me/linuxcnc/nc_files/plasmac2-test
 ----
 
 [[plasmac2:peripheral-offsets]]
@@ -2782,7 +2789,7 @@ and making an initial Z movement to bring the torch near the top of travel at th
 === External HAL Pins
 plasmac2 creates some HAL pins that may be used to connect a momentary external button or pendant etc.
 
-HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the QtPlasmac GUI has loaded.
+HAL connections to these HAL pins need to be specified in a postgui HAL file as the HAL pins are not available until the AXIS GUI has loaded.
 
 The following HAL bit pins are always created. The HAL pin has the identical behaviour of the related plasmac2 GUI button.
 
