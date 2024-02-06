@@ -163,7 +163,7 @@ OFFSET_AV_RATIO       = 0.5
 For imperial configs replace G21 above with G20. +
 All the above paths show the minimum requirements. +
 See <<plasmac2:path-tolerance,Path Tolerance>> For _RS274NGC_STARTUP_CODE_ information related to G64. +
-plasmac2 uses the LinuxCNC <<cha:external-offsets,External Axis Offsets>> feature for all Z axis motion, and for moving the X and/or Y axis for a consumable change while paused. +
+With the exception of <<plasmac2:tube_cutting,tube cutting>> with an angular A, B, or C axis, plasmac2 uses the LinuxCNC <<cha:external-offsets,External Axis Offsets>> feature for all Z axis motion, and for moving the X and/or Y axis for a consumable change or a cut recovery while paused. +
 
 == plasmac2 GUI Overview
 The following sections will give a general overview of the plasmac2 layout and the available functions.
@@ -253,7 +253,7 @@ Some menu items might be grayed out depending on how the INI file is configured.
 |_Show Commanded Position_   |This is the position that LinuxCNC will try to go to.
 |_Show Actual Position_      |The measured position as read back from the system's encoders or simulated by step generators.
 |_Show Machine Position_     |This is the position in unoffset coordinates, as established by Homing.
-|_Show Relative Position_    |This is the Machine Position modified by G5x, G92, and G43 offsets.
+|_Show Relative Position_    |This is the Machine Position modified by G5x and G43 offsets.
 |===
 
 .Conversational Menu
@@ -1104,10 +1104,16 @@ There are 20 user buttons available but not all may be displayed depending on th
 == Using plasmac2
 Once plasmac2 is successfully installed, no Z axis motion is required to be part of the G-code cut program.
 In fact, if any Z axis references are present in the cut program, the standard plasmac2 configuration will remove them during the program loading process.
+See note below for exceptions to this rule.
 
-For reliable use of plasmac2 the user should NOT use any Z axis offsets other than the coordinate system offsets (`G54`-`G59.3`). For this reason, G92 offsets have been disabled across the GUI.
+For reliable use of plasmac2 the user should NOT use any Z axis offsets other than the coordinate system offsets (`G54`-`G59.3`).
+For this reason, G92 offsets have been disabled within plasmac2.
 
 plasmac2 will automatically add a line of G-code to move the Z axis to the correct height at the beginning of every G-code program.
+
+[NOTE]
+It is possible to keep Z motion for use with different tools by adding the magic comment <<plasmac2:keep_z,#<keep-z-motion>=1>>.
+If using an angular A, B, or C axis for <<plasmac2:tube_cutting,tube cutting>> then Z axis motion is required in the G-code file. +
 
 *_Version Information_* - plasmac2 will display versioning information in the title of the main window.
 The information will be displayed as `plasmac2 v2.n + AXIS n.n (f)` where `n` is the version of plasmac2, `n.n` is the version of AXIS, and `f` is the name of the loaded G-code program.
@@ -1216,6 +1222,9 @@ The following variables are mandatory and an error message will appear if any ar
 * PIERCE_DELAY
 * CUT_HEIGHT
 * CUT_SPEED
+
+[NOTE]
+If doing <<plasmac2:tube_cutting,tube cutting>> using the #<tube_cut>=1 magic comment then the only mandatory variable is PIERCE_DELAY, all other variables are optional.
 
 The following variables are optional. If they are not detected or have no value assigned, they will be assigned a value of 0 and no error message will appear.
 
@@ -2163,7 +2172,19 @@ Some plasma cutters will not be suitable for this feature. +
  +
 It is recommended that the user carry out some test spotting to ensure that the plasma cutter is capable of utilizing this feature.
 
-[[custom_kb_layouts]]
+[[plasmac2:tube_cutting]]
+=== Tube Cutting
+
+Tube cutting with an angular A, B, or C axis is achieved with the following in the G-code file:
+
+- #<tube_cut>=1 magic comment before any motion command.
+- All material probing must be done using the link:../gcode/g-code.html#gcode:g38[G38] straight probe codes.
+- All Z axis motion is required, plasmac does no internal Z axis motion during tube cutting.
+- PIERCE_DELAY is the only required <<plasmac2:material-handling,material parameter>>
+- Start a cut with M3 $0 S1.
+- End a cut with M5 $0
+
+[[plasmac2:custom_kb_layouts]]
 === Virtual Keyboard Custom Layouts
 Virtual keyboard support is available for only the "onboard" onscreen keyboard. If it is not already on the system it may be installed by typing the following in a terminal:
 
@@ -2477,7 +2498,7 @@ On the first button press, code1 will be run, the button text will change to nam
 
 On the second button press, code2 will be run, the button text will change to n Name, and the indicator will extinguish if lit.
 
-code1 and code2 both follow the rule of the preceding code explanations, <<plasma:button-cmds,External commands>>, <<plasma:button-py,Python code>>, and <<plasma:button-code,G-code>>. Multiple codes as well as mixing codes are allowed.
+code1 and code2 both follow the rule of the preceding code explanations, <<plasmac2:button-cmds,External commands>>, <<plasmac2:button-py,Python code>>, and <<plasmac:button-code,G-code>>. Multiple codes as well as mixing codes are allowed.
 
 The following code will allow the user to use a single button to run two code snippets alternately each button press:
 
@@ -2825,7 +2846,7 @@ The following HAL bit output pins are always created and can be used by either t
 |_axisui.ext.out_2_ |For connecting to other hal pins
 |===
 
-[[mode0-arcok]]
+[[plasmac2:mode0-arcok]]
 === Tuning Mode 0 Arc OK
 Mode 0 Arc OK relies on the arc voltage to set the Arc OK signal.
 This is accomplished by sampling the arc voltage every servo thread cycle.

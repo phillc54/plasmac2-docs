@@ -11,4 +11,4 @@ asciidoc \
 -a stylesheet=linuxcnc.css \
 plasmac2.adoc
 
-echo 'done...'
+echo -e '\ndone...'

@@ -280,7 +280,7 @@ http://www.gnu.org/software/src-highlite -->
 <td class="content">For imperial configs replace G21 above with G20.<br />
 All the above paths show the minimum requirements.<br />
 See <a href="#plasmac2:path-tolerance">Path Tolerance</a> For <em>RS274NGC_STARTUP_CODE</em> information related to G64.<br />
-plasmac2 uses the LinuxCNC <a href="#cha:external-offsets">External Axis Offsets</a> feature for all Z axis motion, and for moving the X and/or Y axis for a consumable change while paused.<br /></td>
+With the exception of <a href="#plasmac2:tube_cutting">tube cutting</a> with an angular A, B, or C axis, plasmac2 uses the LinuxCNC <a href="#cha:external-offsets">External Axis Offsets</a> feature for all Z axis motion, and for moving the X and/or Y axis for a consumable change or a cut recovery while paused.<br /></td>
 </tr></table>
 </div>
 </div>
@@ -573,7 +573,7 @@ cellspacing="0" cellpadding="4">
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>Show Relative Position</em></p></td>
-<td align="left" valign="top"><p class="table">This is the Machine Position modified by G5x, G92, and G43 offsets.</p></td>
+<td align="left" valign="top"><p class="table">This is the Machine Position modified by G5x and G43 offsets.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2696,9 +2696,20 @@ cellspacing="0" cellpadding="4">
 <h2 id="_using_plasmac2">Using plasmac2</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Once plasmac2 is successfully installed, no Z axis motion is required to be part of the G-code cut program.
-In fact, if any Z axis references are present in the cut program, the standard plasmac2 configuration will remove them during the program loading process.</p></div>
-<div class="paragraph"><p>For reliable use of plasmac2 the user should NOT use any Z axis offsets other than the coordinate system offsets (<code>G54</code>-<code>G59.3</code>).</p></div>
+In fact, if any Z axis references are present in the cut program, the standard plasmac2 configuration will remove them during the program loading process.
+See note below for exceptions to this rule.</p></div>
+<div class="paragraph"><p>For reliable use of plasmac2 the user should NOT use any Z axis offsets other than the coordinate system offsets (<code>G54</code>-<code>G59.3</code>).
+For this reason, G92 offsets have been disabled within plasmac2.</p></div>
 <div class="paragraph"><p>plasmac2 will automatically add a line of G-code to move the Z axis to the correct height at the beginning of every G-code program.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">It is possible to keep Z motion for use with different tools by adding the magic comment <a href="#plasmac2:keep_z">#&lt;keep-z-motion&gt;=1</a>.
+If using an angular A, B, or C axis for <a href="#plasmac2:tube_cutting">tube cutting</a> then Z axis motion is required in the G-code file.<br /></td>
+</tr></table>
+</div>
 <div class="paragraph"><p><strong><em>Version Information</em></strong> - plasmac2 will display versioning information in the title of the main window.
 The information will be displayed as <code>plasmac2 v2.n + AXIS n.n (f)</code> where <code>n</code> is the version of plasmac2, <code>n.n</code> is the version of AXIS, and <code>f</code> is the name of the loaded G-code program.</p></div>
 <div class="sect2">
@@ -2819,6 +2830,14 @@ CUT_SPEED
 </p>
 </li>
 </ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">If doing <a href="#plasmac2:tube_cutting">tube cutting</a> using the #&lt;tube_cut&gt;=1 magic comment then the only mandatory variable is PIERCE_DELAY, all other variables are optional.</td>
+</tr></table>
+</div>
 <div class="paragraph"><p>The following variables are optional. If they are not detected or have no value assigned, they will be assigned a value of 0 and no error message will appear.</p></div>
 <div class="ulist"><ul>
 <li>
@@ -4382,7 +4401,43 @@ It is recommended that the user carry out some test spotting to ensure that the 
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom_kb_layouts">Virtual Keyboard Custom Layouts</h3>
+<h3 id="plasmac2:tube_cutting">Tube Cutting</h3>
+<div class="paragraph"><p>Tube cutting with an angular A, B, or C axis is achieved with the following in the G-code file:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+#&lt;tube_cut&gt;=1 magic comment before any motion command.
+</p>
+</li>
+<li>
+<p>
+All material probing must be done using the <a href="../gcode/g-code.html#gcode:g38">G38</a> straight probe codes.
+</p>
+</li>
+<li>
+<p>
+All Z axis motion is required, plasmac does no internal Z axis motion during tube cutting.
+</p>
+</li>
+<li>
+<p>
+PIERCE_DELAY is the only required <a href="#plasmac2:material-handling">material parameter</a>
+</p>
+</li>
+<li>
+<p>
+Start a cut with M3 $0 S1.
+</p>
+</li>
+<li>
+<p>
+End a cut with M5 $0
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="plasmac2:custom_kb_layouts">Virtual Keyboard Custom Layouts</h3>
 <div class="paragraph"><p>Virtual keyboard support is available for only the "onboard" onscreen keyboard. If it is not already on the system it may be installed by typing the following in a terminal:</p></div>
 <div class="listingblock">
 <div class="content">
@@ -4951,7 +5006,7 @@ http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">n Code </span></span><span style="font-weight: bold"><span style="color: #000000">=</span></span><span style="color: #009900"> dual-code ;; code1 ;; name1 ;; code2 ;; true</span></tt></pre></div></div>
 <div class="paragraph"><p>On the first button press, code1 will be run, the button text will change to name1, and if "true" is specified the indicator will light.</p></div>
 <div class="paragraph"><p>On the second button press, code2 will be run, the button text will change to n Name, and the indicator will extinguish if lit.</p></div>
-<div class="paragraph"><p>code1 and code2 both follow the rule of the preceding code explanations, <a href="#plasma:button-cmds">External commands</a>, <a href="#plasma:button-py">Python code</a>, and <a href="#plasma:button-code">G-code</a>. Multiple codes as well as mixing codes are allowed.</p></div>
+<div class="paragraph"><p>code1 and code2 both follow the rule of the preceding code explanations, <a href="#plasmac2:button-cmds">External commands</a>, <a href="#plasmac2:button-py">Python code</a>, and <a href="#plasmac:button-code">G-code</a>. Multiple codes as well as mixing codes are allowed.</p></div>
 <div class="paragraph"><p>The following code will allow the user to use a single button to run two code snippets alternately each button press:</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.9
@@ -5475,7 +5530,7 @@ cellspacing="0" cellpadding="4">
 </div>
 </div>
 <div class="sect2">
-<h3 id="mode0-arcok">Tuning Mode 0 Arc OK</h3>
+<h3 id="plasmac2:mode0-arcok">Tuning Mode 0 Arc OK</h3>
 <div class="paragraph"><p>Mode 0 Arc OK relies on the arc voltage to set the Arc OK signal.
 This is accomplished by sampling the arc voltage every servo thread cycle.
 There needs to be a specified number of consecutive samples, all within a specified threshold for the Arc OK signal to be set.
@@ -6295,7 +6350,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2024-01-16 17:08:57 AEDT
+ 2024-02-06 14:26:33 AEDT
 </div>
 </div>
 </body>
