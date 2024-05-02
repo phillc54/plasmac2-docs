@@ -1,6 +1,6 @@
 :lang: en
 :toc:
-:toclevels: 4
+:toclevels: 5
 
 = plasmac2 User Manual
 
@@ -343,10 +343,21 @@ Some menu items might be grayed out depending on how the INI file is configured.
 ==== User Buttons
 The Button Panel contains buttons useful for the operation of the machine.
 
-The *Torch Enable* button is permanent, all other buttons are user programmable from the <<plasmac2:setup-page,Setup Page>>
+The *Torch Enable* button and the *Dry Run* button are permanent, all other buttons are user programmable from the <<plasmac2:setup-page,Setup Page>>
 and saved in the _<machine_name>_.prefs file.
 
 See <<plasmac2:user-buttons,custom user buttons>> for detailed information on custom user buttons.
+
+===== Torch Enable
+
+The *Torch Enable* button toggles the torch between enabled and disabled.
+To perform a cut the torch must be enabled.
+If the torch is disabled then the loaded program will be run without the torch turning on, all pierce points will be probed.
+
+===== Dry Run
+
+Pressing the *Dry Run* button if the table is on and homed and a valid G-code file is loaded will cause the program to be run without the torch turning on and without any probing.
+If a alignment laser is fitted then the laser will offset to the cutting position and will then trace the cut path.
 
 [[plasmac2:manual-tab]]
 ==== Manual Tab
@@ -2027,22 +2038,30 @@ If the user has the Run From Line option enabled in the GUI SETTINGS section of 
 . Right click to display the menu.
 . Left click *Run from here*
 
-Note that the "Run From Line" function will run from the beginning of the selected line.
-
 It is important to note that G-code programs can be run from any selected line using this method, however a leadin may not be possible depending on the line selected.
 In this case, an error message will be displayed to let the user know the leadin calculation was not possible.
 
 It is not possible to use Run From Line from within a subroutine.
-If the user selects a line within a subroutine and clicks *Run from here* then an error message will be displayed that includes the O-code name of the subroutine.
+If the user selects a line within a subroutine and attempts to run the resulting file then an error message will be displayed that includes the O-code name of the subroutine.
 
 It is not possible to use Run From Line if previous G-code has set cutter compensation active.
-If the user selects a line while cutter compensation is active and clicks *Run from here* then an error message will be displayed.
+If the user selects a line while cutter compensation is active and attempts to run the resulting file then an error message will be displayed.
 
 It is possible to select a new line while Run From Line is active.
 
-Once the user has selected the starting place, the Run From Line dialog box will be displayed.
+Run From Line may be canceled by clicking the reload button in the toolbar - this method will cancel the Run From Line process if Load was clicked on the Run From Line parameters dialog box and "rfl.ngc" is displayed as the loaded file name in the G-code window header. This will return the user to the originally loaded file.
 
-image::images/plasmac2_run_from_line.png[width=350,align="center"]
+Once the user has selected the starting place, the Run From Line options dialog box will be displayed.
+
+image::images/plasmac2_rfl_options.png[width=350,align="center"]
+
+==== Here to end
+
+*Here to end* will run from the beginning of the selected line to the end of the G-code file with the option of adding a leadin.
+
+Once the user has selected *Here to end*, the Run From Line parameters dialog box will be displayed.
+
+image::images/plasmac2_rfl_here_to_end.png[width=350,align="center"]
 
 [cols="4,16"]
 |===
@@ -2062,10 +2081,15 @@ image::images/plasmac2_run_from_line.png[width=350,align="center"]
                   Program will run from selected line with no leadin applied"
 |===
 
-After pressing the *Load* button the new cut job will be loaded.
+After pressing the *Load* button the new cut job will be loaded consisting of all the cutpaths from the selected segment to the end of the original cut job.
 Click the *Run* button to start the program from the beginning of the selected line.
 
-Run From Line may be canceled by clicking *Reload* in the G-code window header - this method will cancel the Run From Line process if Load was clicked on the Run From Line dialog box and "rfl.ngc" is displayed as the loaded file name in the G-code window header. This will return the user to the originally loaded file.
+==== This cutpath
+
+*This cutpath* will run only the cutpath that the selected segment is a part of.
+
+Once the user has selected *This cutpath*, the new cut job will be loaded consisting of the cutpath that the selected segment was part of.
+Click the *Run* button to start the program from the beginning of the selected line.
 
 [[plasmac2:scribe]]
 === Scribe

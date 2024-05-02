@@ -13,7 +13,7 @@
 <script type="text/javascript" src="utils/scripts/asciidoc.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
-asciidoc.install(4);
+asciidoc.install(5);
 /*]]>*/
 </script>
 </head>
@@ -820,9 +820,20 @@ cellspacing="0" cellpadding="4">
 <div class="sect3">
 <h4 id="_user_buttons">User Buttons</h4>
 <div class="paragraph"><p>The Button Panel contains buttons useful for the operation of the machine.</p></div>
-<div class="paragraph"><p>The <strong>Torch Enable</strong> button is permanent, all other buttons are user programmable from the <a href="#plasmac2:setup-page">Setup Page</a>
+<div class="paragraph"><p>The <strong>Torch Enable</strong> button and the <strong>Dry Run</strong> button are permanent, all other buttons are user programmable from the <a href="#plasmac2:setup-page">Setup Page</a>
 and saved in the <em>&lt;machine_name&gt;</em>.prefs file.</p></div>
 <div class="paragraph"><p>See <a href="#plasmac2:user-buttons">custom user buttons</a> for detailed information on custom user buttons.</p></div>
+<div class="sect4">
+<h5 id="_torch_enable">Torch Enable</h5>
+<div class="paragraph"><p>The <strong>Torch Enable</strong> button toggles the torch between enabled and disabled.
+To perform a cut the torch must be enabled.
+If the torch is disabled then the loaded program will be run without the torch turning on, all pierce points will be probed.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_dry_run">Dry Run</h5>
+<div class="paragraph"><p>Pressing the <strong>Dry Run</strong> button if the table is on and homed and a valid G-code file is loaded will cause the program to be run without the torch turning on and without any probing.
+If a alignment laser is fitted then the laser will offset to the cutting position and will then trace the cut path.</p></div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="plasmac2:manual-tab">Manual Tab</h4>
@@ -4219,18 +4230,27 @@ Left click <strong>Run from here</strong>
 </p>
 </li>
 </ol></div>
-<div class="paragraph"><p>Note that the "Run From Line" function will run from the beginning of the selected line.</p></div>
 <div class="paragraph"><p>It is important to note that G-code programs can be run from any selected line using this method, however a leadin may not be possible depending on the line selected.
 In this case, an error message will be displayed to let the user know the leadin calculation was not possible.</p></div>
 <div class="paragraph"><p>It is not possible to use Run From Line from within a subroutine.
-If the user selects a line within a subroutine and clicks <strong>Run from here</strong> then an error message will be displayed that includes the O-code name of the subroutine.</p></div>
+If the user selects a line within a subroutine and attempts to run the resulting file then an error message will be displayed that includes the O-code name of the subroutine.</p></div>
 <div class="paragraph"><p>It is not possible to use Run From Line if previous G-code has set cutter compensation active.
-If the user selects a line while cutter compensation is active and clicks <strong>Run from here</strong> then an error message will be displayed.</p></div>
+If the user selects a line while cutter compensation is active and attempts to run the resulting file then an error message will be displayed.</p></div>
 <div class="paragraph"><p>It is possible to select a new line while Run From Line is active.</p></div>
-<div class="paragraph"><p>Once the user has selected the starting place, the Run From Line dialog box will be displayed.</p></div>
+<div class="paragraph"><p>Run From Line may be canceled by clicking the reload button in the toolbar - this method will cancel the Run From Line process if Load was clicked on the Run From Line parameters dialog box and "rfl.ngc" is displayed as the loaded file name in the G-code window header. This will return the user to the originally loaded file.</p></div>
+<div class="paragraph"><p>Once the user has selected the starting place, the Run From Line options dialog box will be displayed.</p></div>
 <div class="imageblock" style="text-align:center;">
 <div class="content">
-<img src="images/plasmac2_run_from_line.png" alt="images/plasmac2_run_from_line.png" width="350" />
+<img src="images/plasmac2_rfl_options.png" alt="images/plasmac2_rfl_options.png" width="350" />
+</div>
+</div>
+<div class="sect3">
+<h4 id="_here_to_end">Here to end</h4>
+<div class="paragraph"><p><strong>Here to end</strong> will run from the beginning of the selected line to the end of the G-code file with the option of adding a leadin.</p></div>
+<div class="paragraph"><p>Once the user has selected <strong>Here to end</strong>, the Run From Line parameters dialog box will be displayed.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/plasmac2_rfl_here_to_end.png" alt="images/plasmac2_rfl_here_to_end.png" width="350" />
 </div>
 </div>
 <div class="tableblock">
@@ -4276,9 +4296,15 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="paragraph"><p>After pressing the <strong>Load</strong> button the new cut job will be loaded.
+<div class="paragraph"><p>After pressing the <strong>Load</strong> button the new cut job will be loaded consisting of all the cutpaths from the selected segment to the end of the original cut job.
 Click the <strong>Run</strong> button to start the program from the beginning of the selected line.</p></div>
-<div class="paragraph"><p>Run From Line may be canceled by clicking <strong>Reload</strong> in the G-code window header - this method will cancel the Run From Line process if Load was clicked on the Run From Line dialog box and "rfl.ngc" is displayed as the loaded file name in the G-code window header. This will return the user to the originally loaded file.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_this_cutpath">This cutpath</h4>
+<div class="paragraph"><p><strong>This cutpath</strong> will run only the cutpath that the selected segment is a part of.</p></div>
+<div class="paragraph"><p>Once the user has selected <strong>This cutpath</strong>, the new cut job will be loaded consisting of the cutpath that the selected segment was part of.
+Click the <strong>Run</strong> button to start the program from the beginning of the selected line.</p></div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="plasmac2:scribe">Scribe</h3>
@@ -6350,7 +6376,7 @@ The resulting file which is paced in the users home directory is suitable for at
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2024-02-06 14:26:33 AEDT
+ 2024-05-02 14:19:07 AEST
 </div>
 </div>
 </body>

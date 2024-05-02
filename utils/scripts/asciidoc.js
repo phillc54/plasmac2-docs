@@ -17,7 +17,7 @@ var asciidoc = {  // Namespace.
  /* modified by Troy D. Hanson, September 2006. License: GPL */
  /* modified by Stuart Rackham, 2006, 2009. License: GPL */
 
-// toclevels = 1..4.
+// toclevels = 1..5.
 toc: function (toclevels) {
 
   function getText(el) {
